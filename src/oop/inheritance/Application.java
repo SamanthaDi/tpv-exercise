@@ -2,6 +2,8 @@ package oop.inheritance;
 
 import java.time.LocalDateTime;
 
+import oop.inheritance.core.TPVDisplay;
+import oop.inheritance.core.TPVFactory;
 import oop.inheritance.data.Card;
 import oop.inheritance.data.CommunicationType;
 import oop.inheritance.data.SupportedTerminal;
@@ -16,34 +18,31 @@ import oop.inheritance.ingenico.IngenicoKeyboard;
 import oop.inheritance.ingenico.IngenicoModem;
 import oop.inheritance.ingenico.IngenicoPrinter;
 import oop.inheritance.verifone.v240m.VerifoneV240mDisplay;
+import oop.inheritance.verifone.vx520.VerifoneVx520Display;
+import oop.inheritance.verifone.vx690.VerifoneVx690Display;
 
 public class Application {
 
     private CommunicationType communicationType = CommunicationType.ETHERNET;
     private SupportedTerminal supportedTerminal;
+    private TPVFactory tpvFactory;
 
     public Application(SupportedTerminal supportedTerminal) {
+
         this.supportedTerminal = supportedTerminal;
+        tpvFactory = new TPVFactory(supportedTerminal);
     }
 
+
     public void showMenu() {
-        if (supportedTerminal == SupportedTerminal.INGENICO) {
-            IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
 
-            ingenicoDisplay.showMessage(5, 5, "MENU");
-            ingenicoDisplay.showMessage(5, 10, "1. VENTA");
-            ingenicoDisplay.showMessage(5, 13, "2. DEVOLUCION");
-            ingenicoDisplay.showMessage(5, 16, "3. REPORTE");
-            ingenicoDisplay.showMessage(5, 23, "4. CONFIGURACION");
-        } else {
-            VerifoneV240mDisplay verifoneV240mDisplay = new VerifoneV240mDisplay();
+        TPVDisplay tpvDisplay = tpvFactory.getDisplayInstance();
 
-            verifoneV240mDisplay.showMessage(5, 5, "MENU");
-            verifoneV240mDisplay.showMessage(5, 10, "1. VENTA");
-            verifoneV240mDisplay.showMessage(5, 13, "2. DEVOLUCION");
-            verifoneV240mDisplay.showMessage(5, 16, "3. REPORTE");
-            verifoneV240mDisplay.showMessage(5, 23, "4. CONFIGURACION");
-        }
+        tpvDisplay.showMessage(5, 5, "MENU");
+        tpvDisplay.showMessage(5, 10, "1. VENTA");
+        tpvDisplay.showMessage(5, 13, "2. DEVOLUCION");
+        tpvDisplay.showMessage(5, 16, "3. REPORTE");
+        tpvDisplay.showMessage(5, 23, "4. CONFIGURACION");
 
     }
 
