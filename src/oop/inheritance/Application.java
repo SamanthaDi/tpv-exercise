@@ -55,7 +55,7 @@ public class Application {
     public void doSale() {
         IngenicoCardSwipper cardSwipper = new IngenicoCardSwipper();
         IngenicoChipReader chipReader = new IngenicoChipReader();
-        IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
+        IngenicoDisplay ingenicoDisplay = IngenicoDisplay.getInstance();
         IngenicoKeyboard ingenicoKeyboard = new IngenicoKeyboard();
         Card card;
 
@@ -142,11 +142,11 @@ public class Application {
 
     public void clearScreen() {
         if (supportedTerminal == SupportedTerminal.INGENICO) {
-            IngenicoDisplay ingenicoDisplay = new IngenicoDisplay();
+            IngenicoDisplay ingenicoDisplay = IngenicoDisplay.getInstance();
 
             ingenicoDisplay.clear();
         } else {
-            VerifoneV240mDisplay verifoneV240mDisplay = new VerifoneV240mDisplay();
+            VerifoneV240mDisplay verifoneV240mDisplay = VerifoneV240mDisplay.getInstance();
 
             verifoneV240mDisplay.clear();
         }
